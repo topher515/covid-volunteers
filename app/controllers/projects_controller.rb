@@ -6,6 +6,7 @@ class ProjectsController < ApplicationController
 
   def index
     @projects = Project.left_joins(:volunteers).group(:id).order('COUNT(volunteers.id) DESC, created_at DESC').page(params[:page])
+    @total_count = @projects.total_count
     @projects_header = 'COVID-19 projects looking for volunteers'
     @projects_subheader = 'These projects were posted by the community. Volunteer yourself or create a new one.'
   end
